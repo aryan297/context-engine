@@ -89,7 +89,7 @@ curl -X POST http://localhost:8080/v1/ingest-project \
 
 ## Step 2 — Query Your Project Context
 
-After ingestion, ask questions about your project:
+After ingestion, ask questions about your project: 
 
 ### Option A: CLI
 
