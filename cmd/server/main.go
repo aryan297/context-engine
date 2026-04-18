@@ -83,7 +83,8 @@ func runServer(cfg *config.Config) error {
 	// HTTP layer
 	ingestH := handler.NewIngestHandler(ingestSvc)
 	queryH := handler.NewQueryHandler(querySvc)
-	router := api.NewRouter(ingestH, queryH)
+	projectH := handler.NewProjectHandler(vectorStore)
+	router := api.NewRouter(ingestH, queryH, projectH)
 
 	addr := ":" + cfg.Server.Port
 	fmt.Printf("context-engine listening on %s\n", addr)

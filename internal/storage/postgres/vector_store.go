@@ -9,6 +9,7 @@ import (
 	_ "github.com/lib/pq"
 
 	"github.com/context-engine/internal/domain/model"
+	"github.com/context-engine/internal/domain/repository"
 )
 
 type VectorStore struct {
@@ -134,6 +135,32 @@ func (s *VectorStore) SearchSimilarFunctions(embedding []float32, projectName st
 		fns = append(fns, fn)
 	}
 	return fns, rows.Err()
+}
+
+func (s *VectorStore) ListProjects() ([]*repository.ProjectSummary, error) {
+	rows, err := s.db.Query(`
+		SELECT f.project_name,
+		       COUNT(DISTINCT f.id)  AS file_count,
+		       COUNT(DISTINCT fn.id) AS func_count
+		FROM files f
+		LEFT JOIN functions fn ON fn.project_name = f.project_name
+		GROUP BY f.project_name
+		ORDER BY f.project_name
+	`)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var projects []*repository.ProjectSummary
+	for rows.Next() {
+		p := &repository.ProjectSummary{}
+		if err := rows.Scan(&p.Name, &p.FileCount, &p.FuncCount); err != nil {
+			return nil, err
+		}
+		projects = append(projects, p)
+	}
+	return projects, rows.Err()
 }
 
 // vectorLiteral converts a float32 slice to pgvector literal format: '[1.0,2.0,...]'
