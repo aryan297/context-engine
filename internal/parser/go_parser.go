@@ -15,9 +15,9 @@ import (
 
 type GoParser struct{}
 
-func NewGoParser() *GoParser {
-	return &GoParser{}
-}
+func NewGoParser() *GoParser { return &GoParser{} }
+
+func (p *GoParser) Extensions() []string { return []string{".go"} }
 
 // ParseDirectory walks dirPath recursively and parses every .go file found.
 func (p *GoParser) ParseDirectory(projectID, projectName, dirPath string) ([]*model.File, error) {

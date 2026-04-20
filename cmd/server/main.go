@@ -74,10 +74,10 @@ func runServer(cfg *config.Config) error {
 
 	// Core components
 	emb := embedding.NewMockEmbedder()
-	goParser := parser.NewGoParser()
+	parserRegistry := parser.NewRegistry()
 
 	// Services
-	ingestSvc := service.NewIngestService(goParser, graphStore, vectorStore, emb)
+	ingestSvc := service.NewIngestService(parserRegistry, graphStore, vectorStore, emb)
 	querySvc := service.NewQueryService(graphStore, vectorStore, cache, emb)
 
 	// HTTP layer

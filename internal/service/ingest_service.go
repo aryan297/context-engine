@@ -14,14 +14,14 @@ import (
 )
 
 type IngestService struct {
-	parser     *parser.GoParser
+	parser     *parser.Registry
 	graphRepo  repository.GraphRepository
 	vectorRepo repository.VectorRepository
 	embedder   embedding.Embedder
 }
 
 func NewIngestService(
-	p *parser.GoParser,
+	p *parser.Registry,
 	gr repository.GraphRepository,
 	vr repository.VectorRepository,
 	emb embedding.Embedder,
