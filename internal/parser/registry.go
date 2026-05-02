@@ -17,7 +17,7 @@ type Registry struct {
 // NewRegistry builds a Registry pre-loaded with Go, TypeScript, and Java parsers.
 func NewRegistry() *Registry {
 	r := &Registry{byExt: make(map[string]Parser)}
-	for _, p := range []Parser{NewGoParser(), NewTypeScriptParser(), NewJavaParser()} {
+	for _, p := range []Parser{NewGoParser(), NewTypeScriptParser(), NewJavaParser(), NewPythonParser(), NewRustParser()} {
 		for _, ext := range p.Extensions() {
 			r.byExt[ext] = p
 		}
@@ -34,9 +34,16 @@ var hardSkipDirs = map[string]bool{
 	"dist":         true,
 	"build":        true,
 	"out":          true,
-	"coverage":     true,
-	".cache":       true,
-	".turbo":       true,
+	"coverage":      true,
+	".cache":        true,
+	".turbo":        true,
+	"__pycache__":   true,
+	".venv":         true,
+	"venv":          true,
+	".mypy_cache":   true,
+	".pytest_cache": true,
+	"site-packages": true,
+	"target":        true, // Rust build output
 }
 
 // loadGitignoreDirs reads the .gitignore at root and returns a set of

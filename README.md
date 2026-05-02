@@ -10,6 +10,8 @@ Query ──► Embedding ──► pgvector search ──► Graph expand (Neo4
 
 **Stack:** Go + Gin · PostgreSQL + pgvector · Neo4j · Redis
 
+**Supported languages:** Go · TypeScript · TSX · Java · Python · Rust — see [LANGUAGES.md](LANGUAGES.md)
+
 ---
 
 ## Quick Start (macOS / Linux)
@@ -21,7 +23,7 @@ Query ──► Embedding ──► pgvector search ──► Graph expand (Neo4
 # 2. Start the server
 ./bin/context-engine serve
 
-# 3. Ingest a Go project
+# 3. Ingest a project (Go / TypeScript / Java / Python / Rust)
 ./bin/context-engine ingest ./my-project --project my-project
 
 # 4. Query for context
@@ -138,7 +140,7 @@ Made changes to your project? Just run ingest again with the same project name:
 .\bin\context-engine.exe ingest C:\repos\ride-hailing --project ride-hailing
 ```
 
-The engine re-parses all `.go` files, regenerates embeddings, and updates the graph and vector store.
+The engine re-parses all supported source files (`.go`, `.ts`, `.tsx`, `.java`, `.py`, `.rs`), regenerates embeddings, and updates the graph and vector store.
 
 ---
 
@@ -225,5 +227,5 @@ query string → MockEmbedder.Generate
 ## Extending
 
 - **Real embeddings:** Replace `MockEmbedder` in `internal/embedding/` with an OpenAI/Cohere client implementing the `Embedder` interface.
-- **Other languages:** Add a new parser in `internal/parser/` implementing the same `ParseDirectory` / `ParseFile` contract.
+- **New languages:** See [LANGUAGES.md](LANGUAGES.md) for how to add a parser (Ruby, Rust, C#, etc.) in under 60 lines.
 - **Auth middleware:** Add Gin middleware in `internal/api/router.go`.
