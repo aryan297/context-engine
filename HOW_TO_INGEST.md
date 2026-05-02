@@ -346,10 +346,14 @@ You can ingest as many projects as you want — each is isolated by `project_nam
 
 ## Language Support
 
-| Language | Status        |
-|----------|---------------|
-| Go       | Supported     |
-| Others   | Add a parser in `internal/parser/` |
+| Language              | Extensions           | Status    |
+|-----------------------|----------------------|-----------|
+| Go                    | `.go`                | Supported |
+| TypeScript / TSX      | `.ts`, `.tsx`        | Supported |
+| Java                  | `.java`              | Supported |
+| Other languages       | —                    | Add a parser in `internal/parser/` |
+
+> `node_modules/`, `vendor/`, `.next/`, `dist/`, `build/`, and `.git/` are automatically skipped during ingestion.
 
 ---
 

@@ -1,0 +1,20 @@
+# Build output
+bin/
+*.exe
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Go toolchain
+vendor/
+go.sum.bak
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
